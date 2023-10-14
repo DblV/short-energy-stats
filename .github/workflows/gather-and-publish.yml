@@ -9,26 +9,27 @@ jobs:
   gather_and_push:
     runs-on: [ubuntu-latest]
 
+    env:
+      BASEURL: ${{ vars.SES_BASEURL }}
+      TOKEN: ${{ vars.SES_TOKEN }}
+      SNID: ${{ vars.SES_SNID }}
+
     permissions:
       contents: write
 
     steps:
-    - name: Check out code
-    - uses: actions/checkout@v2
+      - name: Check out code
+        uses: actions/checkout@v4
 
-    - name: Gather data
-    - run: ./gather-stats.ps1
-      id: script
-      shell: pwsh
-      env:
-        BASEURL: ${{ vars.SES_BASEURL }}
-        TOKEN: ${{ vars.SES_TOKEN }}
-        SNID: ${{ vars.SES_SNID }}
+      - name: Gather data
+        shell: pwsh
+        run: |
+          .\gather-stats.ps1
 
-    - name: Commit snapshot
-    - run: |
-        git config user.email github-actions@github.com
-        git config user.name github-actions
-        git add .
-        git commit -m "Update snapshot"
-        git push
+      - name: Commit snapshot
+        run: |
+          git config user.email github-actions@github.com
+          git config user.name github-actions
+          git add .
+          git commit -m "Update snapshot"
+          git push
