@@ -1,0 +1,34 @@
+name: Run data retrieval
+
+on:
+  workflow_dispatch:
+  #schedule:
+  #  - cron: "*/10 7-21 * * *"
+    
+jobs:
+  gather_and_push:
+    runs-on: [ubuntu-latest]
+
+    permissions:
+      contents: write
+
+    steps:
+    - name: Check out code
+    - uses: actions/checkout@v2
+
+    - name: Gather data
+    - run: ./gather-stats.ps1
+      id: script
+      shell: pwsh
+      env:
+        BASEURL: ${{ vars.SES_BASEURL }}
+        TOKEN: ${{ vars.SES_TOKEN }}
+        SNID: ${{ vars.SES_SNID }}
+
+    - name: Commit snapshot
+    - run: |
+      git config user.email github-actions@github.com
+      git config user.name github-actions
+      git add .
+      git commit -m "Update snapshot"
+      git push
