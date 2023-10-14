@@ -10,9 +10,9 @@ jobs:
     runs-on: [ubuntu-latest]
 
     env:
-      BASEURL: ${{ vars.SES_BASEURL }}
-      TOKEN: ${{ vars.SES_TOKEN }}
-      SNID: ${{ vars.SES_SNID }}
+      BASEURL: ${{ secrets.SES_BASEURL }}
+      TOKEN: ${{ secrets.SES_TOKEN }}
+      SNID: ${{ secrets.SES_SNID }}
 
     permissions:
       contents: write
