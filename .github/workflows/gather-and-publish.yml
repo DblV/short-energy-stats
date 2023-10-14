@@ -2,8 +2,8 @@ name: Run data retrieval
 
 on:
   workflow_dispatch:
-  #schedule:
-  #  - cron: "*/10 7-21 * * *"
+  schedule:
+    - cron: "*/10 7-21 * * *"
     
 jobs:
   gather_and_push:
