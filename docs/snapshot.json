@@ -1,7 +1,7 @@
 {
-  "bc": null,
-  "gp": null,
-  "pv": null,
-  "lp": null,
-  "bp": null
+  "pv": 0.0,
+  "bc": 35.0,
+  "gp": 0.0,
+  "lp": 4033.0,
+  "bp": -4044.0
 }
